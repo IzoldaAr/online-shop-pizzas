@@ -1,0 +1,14 @@
+{
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "semi": true,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "jsxBracketSameLine": false,
+  "arrowParens": "always",
+  "proseWrap": "always",
+  "endOfLine": "lf",
+  "xmlSelfClosingSpace": false,
+  "htmlWhitespaceSensitivity": "ignore",
+  "xmlWhitespaceSensitivity": "ignore"
+}
