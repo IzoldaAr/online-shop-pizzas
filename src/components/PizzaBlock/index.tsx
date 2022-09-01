@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { TPizza } from 'pages/Home';
 
-function PizzaBlock({ imageUrl, name, price, sizes, types: widthTypes }: TPizza) {
+function PizzaBlock({ imageUrl, title, price, sizes, types: widthTypes }: TPizza) {
   const [activeSize, setActiveSize] = useState(0);
   const [activeType, setActiveType] = useState(0);
 
@@ -14,7 +14,7 @@ function PizzaBlock({ imageUrl, name, price, sizes, types: widthTypes }: TPizza)
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-      <h4 className="pizza-block__title">{name}</h4>
+      <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
           {widthTypes.map((widthType, index) => (

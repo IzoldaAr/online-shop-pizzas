@@ -1,9 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { createContext, useEffect, useRef, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Header } from './components';
-import { Home, Cart, NotFound } from './pages';
+import { Home, Cart, NotFound, RegistrationForm } from './pages';
+
+export const SearchContext = createContext<{
+  searchValue: string;
+  setSearchValue?: React.Dispatch<React.SetStateAction<string>>;
+}>({ searchValue: '' });
 
 function App() {
+  const [searchValue, setSearchValue] = useState<string>('');
   // const [value, setValue] = useState('initial');
   // const prev = useRef('');
 
@@ -26,19 +32,22 @@ function App() {
   return (
     <div>
       <div className="wrapper">
-        {/* <input value={value} onChange={(e) => setValue(e.target.value)} />
+        <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+          {/* <input value={value} onChange={(e) => setValue(e.target.value)} />
 
         <div>Current Value: {value}</div>
         <div>Prev Value: {prev.current}</div> */}
-        <Header />
+          <Header />
 
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/registration" element={<RegistrationForm />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+        </SearchContext.Provider>
       </div>
     </div>
   );

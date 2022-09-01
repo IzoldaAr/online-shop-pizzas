@@ -1,24 +1,20 @@
-import classNames from 'classnames';
 import { SetStateAction, useState } from 'react';
 
-function Categories({ items }: any) {
-  const [activeItem, setActiveItem] = useState(null);
+function Categories({ categoryId, onCategoryChange }: any) {
+  // const selectActiveItem = (index: SetStateAction<null>) => {
+  //   setActiveItem(index);
+  // };
 
-  const selectActiveItem = (index: SetStateAction<null>) => {
-    setActiveItem(index);
-  };
+  const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   return (
     <div className="categories">
       <ul>
-        <li className={activeItem === null ? 'active' : ''} onClick={() => selectActiveItem(null)}>
-          Все
-        </li>
-        {items.map((item: any, index: any) => (
+        {categories.map((item: any, index: any) => (
           <li
             key={`${item}_${index}`}
-            className={activeItem === index ? 'active' : ''}
-            onClick={() => selectActiveItem(index)}
+            className={categoryId === index ? 'active' : ''}
+            onClick={() => onCategoryChange(index)}
           >
             {item}
           </li>

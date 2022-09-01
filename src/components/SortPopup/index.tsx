@@ -1,21 +1,26 @@
 import { useEffect, useState, useRef, FC, RefObject } from 'react';
 
 type TProp = {
-  items: string[];
+  sortType: { name: string; sortProperty: string };
+  onSortTypeChange: (index: any) => void;
 };
 
-function SortPopup({ items }: TProp) {
+function SortPopup({ sortType, onSortTypeChange }: TProp) {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [activeItem, setActiveItem] = useState(0);
   const sortRef = useRef<HTMLSpanElement | null>(null);
+
+  const list = [
+    { name: 'популярности (DESC)', sortProperty: 'rating' },
+    { name: 'популярности (ASC)', sortProperty: '-rating' },
+    { name: 'цене (DESC)', sortProperty: 'price' },
+    { name: 'цене (ASC)', sortProperty: '-price' },
+    { name: 'алфавиту (DESC)', sortProperty: 'title' },
+    { name: 'алфавиту (ASC)', sortProperty: '-title' },
+  ];
 
   useEffect(() => {
     document.body.addEventListener('click', closeSortPopup);
   }, []);
-
-  const selectSortItem = (index: any) => {
-    setActiveItem(index);
-  };
 
   const togglePoppup = () => {
     setIsPopupVisible(!isPopupVisible);
@@ -45,19 +50,19 @@ function SortPopup({ items }: TProp) {
         </svg>
         <b>Сортировка по:</b>
         <span ref={sortRef} onClick={togglePoppup}>
-          {items[activeItem]}
+          {sortType.name}
         </span>
       </div>
       {isPopupVisible && (
         <div className="sort__popup">
           <ul>
-            {items.map((item: any, index: any) => (
+            {list.map((item, index) => (
               <li
-                key={`${item}_${index}`}
-                className={activeItem === index ? 'active' : ''}
-                onClick={() => selectSortItem(index)}
+                key={`${item.name}_${index}`}
+                className={sortType.sortProperty === item.sortProperty ? 'active' : ''}
+                onClick={() => onSortTypeChange(item)}
               >
-                {item}
+                {item.name}
               </li>
             ))}
           </ul>
