@@ -4,10 +4,14 @@ import { Categories, SortPopup, PizzaBlock } from 'components';
 import { useEffect, useState, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TRootStore } from 'store';
-import { setCategoryId, setSortType } from 'store/slice/filterSlice.js';
+import { setCategoryId, setSortType, setFilters } from 'store/slice/filterSlice.js';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
+import { list } from '../../components/SortPopup';
 //import { debounce } from '../../actions';
 
 export type TPizza = {
+  id: number;
   imageUrl: string;
   title: string;
   price: number;
@@ -17,15 +21,19 @@ export type TPizza = {
 
 function Home() {
   const dispatch = useDispatch();
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
   const { searchValue } = useContext(SearchContext);
   const [pizzasItems, setPizzasItems] = useState<TPizza[]>([]);
   const { categoryId, sortType } = useSelector((state: TRootStore) => state.filter);
+  const navigate = useNavigate();
+
   // const firstRenderRef = useRef(false);
 
   // const [categoryId, setCategoryId] = useState(0);
   // const [sortType, setSortType] = useState({ name: 'популярности', sortProperty: 'rating' });
 
-  useEffect(() => {
+  const fetchPizzas = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const sortBy = '&sortBy=' + sortType.sortProperty.replace('-', '');
     const order = '&order=' + (sortType.sortProperty.includes('-') ? 'asc' : 'desc');
@@ -38,15 +46,38 @@ function Home() {
         setPizzasItems(arr);
       })
     );
-    // firstRenderRef.current = true;
-  }, [categoryId, sortType, searchValue]);
-  console.log({ searchValue });
+  };
 
-  // useEffect(() => {
-  //   if (firstRenderRef.current) {
-  //     //...
-  //   }
-  // }, [searchValue]);
+  useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortProperty: sortType.sortProperty,
+        categoryId,
+      });
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
+  }, [categoryId, sortType.sortProperty]);
+
+  useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sort = list.find((obj: any) => obj.sortProperty === params.sortProperty);
+      dispatch(setFilters({ ...params, sort }));
+      isSearch.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+    isSearch.current = false;
+    // return () => {
+    //   isSearch.current = true;
+    // };
+  }, [categoryId, sortType.sortProperty, searchValue]);
 
   return (
     <div className="container">

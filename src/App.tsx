@@ -10,6 +10,7 @@ export const SearchContext = createContext<{
 
 function App() {
   const [searchValue, setSearchValue] = useState<string>('');
+  //const render = useRef(false);
   // const [value, setValue] = useState('initial');
   // const prev = useRef('');
 
@@ -28,6 +29,17 @@ function App() {
 
   //   console.log({ value, 'prev.current': prev.current });
   // }, [value]);
+
+  // useEffect(() => {
+  //   // console.log('MOUNTED');
+  //   if (!render.current) {
+  //     console.log('MOUNTED');
+  //   }
+  //   return () => {
+  //     render.current = true;
+  //     console.log('UNMOUNTED');
+  //   };
+  // }, []);
 
   return (
     <div>
