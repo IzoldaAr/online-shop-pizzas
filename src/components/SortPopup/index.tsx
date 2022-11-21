@@ -20,6 +20,7 @@ function SortPopup({ sortType, onSortTypeChange }: TProp) {
 
   useEffect(() => {
     document.body.addEventListener('click', closeSortPopup);
+    return () => document.body.removeEventListener('click', closeSortPopup);
   }, []);
 
   const togglePoppup = () => {

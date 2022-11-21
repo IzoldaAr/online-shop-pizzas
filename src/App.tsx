@@ -10,6 +10,8 @@ export const SearchContext = createContext<{
 
 function App() {
   const [searchValue, setSearchValue] = useState<string>('');
+  // const [openedCollapses, setOpenedCollapses] = useState([]);
+
   //const render = useRef(false);
   // const [value, setValue] = useState('initial');
   // const prev = useRef('');
@@ -23,6 +25,19 @@ function App() {
   // //     'e.target.value': e.target.value,
   // //   });
   // // };
+
+  // const toggleCollapse = (id) => {
+  //   const openedCollapsesCp = [...openedCollapses];
+  //   const isAlreadyOpened = openedCollapsesCp.indexOf(id);
+
+  //   if (isAlreadyOpened !== -1) {
+  //     openedCollapsesCp.push(id);
+  //   } else {
+  //     openedCollapsesCp.splice(isAlreadyOpened, 1);
+  //   }
+
+  //   setOpenCollapse(openedCollapsesCp);
+  // };
 
   // useEffect(() => {
   //   prev.current = value;

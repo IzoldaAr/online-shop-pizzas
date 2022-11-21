@@ -5,8 +5,7 @@ import { TRootStore } from 'store';
 import logo from '../../assets/img/pizza-logo.svg';
 
 function Header() {
-  const { items, totalPrice } = useSelector((state: TRootStore) => state.cart);
-
+  const { totalPrice, totalCount } = useSelector((state: TRootStore) => state.cart);
   return (
     <div className="header">
       <div className="container">
@@ -22,7 +21,7 @@ function Header() {
         <Search />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>{totalPrice}</span>
+            <span>{totalPrice} ₽</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -53,7 +52,7 @@ function Header() {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{items.length}</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>

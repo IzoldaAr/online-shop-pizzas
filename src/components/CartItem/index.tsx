@@ -1,14 +1,21 @@
 import { useEffect, useState, useRef, FC, RefObject } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeItem } from 'store/slice/cartSlice';
 
 type PizzaItemCart = {
+  id: number;
   title: string;
   imageUrl: string;
   type: number;
   size: number;
   price: number;
+  count: number;
 };
 
-function CartItem({ title, imageUrl, type, size, price }: PizzaItemCart) {
+function CartItem({ id, title, imageUrl, type, size, price, count }: PizzaItemCart) {
+  const dispatch = useDispatch();
+  const removePizza = dispatch(removeItem(id));
+
   return (
     <div className="cart__item">
       <div className="cart__item-img">
@@ -39,7 +46,7 @@ function CartItem({ title, imageUrl, type, size, price }: PizzaItemCart) {
             ></path>
           </svg>
         </button>
-        <b>1</b>
+        <b>{count}</b>
         <button className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"
@@ -60,10 +67,10 @@ function CartItem({ title, imageUrl, type, size, price }: PizzaItemCart) {
         </button>
       </div>
       <div className="cart__item-price">
-        <b>{price} ₽</b>
+        <b>{price * count} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <div className="button button--outline button--circle">
+        <div onClick={removePizza} className="button button--outline button--circle">
           <svg
             width="10"
             height="10"

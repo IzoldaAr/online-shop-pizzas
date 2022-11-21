@@ -9,7 +9,13 @@ function Cart() {
   const dispatch = useDispatch();
   const authStore = useSelector<TRootStore>((store) => store.auth);
   const pizzaItems = useSelector((state: TRootStore) => state.cart.items);
-  console.log(pizzaItems, 'pizzaItem');
+  const { totalPrice, totalCount } = useSelector((state: TRootStore) => state.cart);
+  console.log(authStore);
+  const onClickClear = () => {
+    if (window.confirm('Do you want to clear the cart?')) {
+      dispatch(clearItems());
+    }
+  };
 
   useEffect(() => {
     dispatch(
@@ -19,8 +25,6 @@ function Cart() {
       })
     );
   }, []);
-
-  console.log(authStore);
 
   return (
     <div className="container container--cart">
@@ -42,7 +46,9 @@ function Cart() {
               strokeLinejoin="round"
             ></path>
           </svg>
-          <span onClick={() => dispatch(clearItems())}>Очистить корзину</span>
+          <span onClick={onClickClear} style={{ cursor: 'pointer' }}>
+            Очистить корзину
+          </span>
         </div>
       </div>
       <div className="content__items">
@@ -53,12 +59,10 @@ function Cart() {
       <div className="cart__bottom">
         <div className="cart__bottom-details">
           <span>
-            {' '}
-            Всего пицц: <b>4 шт.</b>{' '}
+            Всего пицц: <b>{totalCount} шт.</b>{' '}
           </span>
           <span>
-            {' '}
-            Сумма заказа: <b>1935 ₽</b>{' '}
+            Сумма заказа: <b>{totalPrice} ₽</b>{' '}
           </span>
         </div>
         <div className="cart__bottom-buttons">
