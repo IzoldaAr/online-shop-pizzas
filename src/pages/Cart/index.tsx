@@ -2,15 +2,16 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TRootStore } from 'store';
 import { addUserInfo, resetUserInfo } from 'store/slice/authSlice';
+import { Link } from 'react-router-dom';
 import { clearItems } from 'store/slice/cartSlice';
-import CartItem from '../../components/CartItem';
+import { CartItem } from '../../components';
 
 function Cart() {
   const dispatch = useDispatch();
-  const authStore = useSelector<TRootStore>((store) => store.auth);
+  //const authStore = useSelector<TRootStore>((store) => store.auth);
   const pizzaItems = useSelector((state: TRootStore) => state.cart.items);
   const { totalPrice, totalCount } = useSelector((state: TRootStore) => state.cart);
-  console.log(authStore);
+  //console.log(authStore);
   const onClickClear = () => {
     if (window.confirm('Do you want to clear the cart?')) {
       dispatch(clearItems());
@@ -30,7 +31,7 @@ function Cart() {
     <div className="container container--cart">
       <div className="cart">
         <div className="cart__top">
-          <h2 className="content__title"> sdvsd</h2>
+          <h2 className="content__title">Корзина</h2>
           <svg
             width="18"
             height="18"
@@ -66,7 +67,7 @@ function Cart() {
           </span>
         </div>
         <div className="cart__bottom-buttons">
-          <a className="button button--outline button--add go-back-btn" href="/">
+          <Link className="button button--outline button--add go-back-btn" to="/">
             <svg
               width="8"
               height="14"
@@ -83,7 +84,7 @@ function Cart() {
               ></path>
             </svg>
             <span>Вернуться назад</span>
-          </a>
+          </Link>
           <div className="button pay-btn">
             <span>Оплатить сейчас</span>
           </div>

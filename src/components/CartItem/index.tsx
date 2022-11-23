@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, FC, RefObject } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem } from 'store/slice/cartSlice';
+import { removeItem } from '../../store/slice/cartSlice';
 
 type PizzaItemCart = {
   id: number;
@@ -14,7 +14,7 @@ type PizzaItemCart = {
 
 function CartItem({ id, title, imageUrl, type, size, price, count }: PizzaItemCart) {
   const dispatch = useDispatch();
-  const removePizza = dispatch(removeItem(id));
+  const removePizza = () => dispatch(removeItem(id));
 
   return (
     <div className="cart__item">
