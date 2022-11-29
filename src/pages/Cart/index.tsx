@@ -53,9 +53,12 @@ function Cart() {
         </div>
       </div>
       <div className="content__items">
-        {pizzaItems.map((item) => (
+        <>
+        {console.log(pizzaItems, 'pizzaItems')}
+        { pizzaItems.map((item) => (
           <CartItem key={item.id} {...item} />
         ))}
+        </>
       </div>
       <div className="cart__bottom">
         <div className="cart__bottom-details">

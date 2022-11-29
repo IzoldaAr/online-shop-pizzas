@@ -26,7 +26,6 @@ function PizzaBlock({ id, imageUrl, title, price, sizes, types: widthTypes }: TP
     };
     dispatch(addItem(item));
   };
-  console.log(activeSize);
 
   const selectActiveSize = (index: number) => {
     setActiveSize(index);
