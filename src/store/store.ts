@@ -3,6 +3,7 @@ import { authReducer } from './slice/authSlice';
 import filterSlice from './slice/filterSlice.js';
 import { productReducer } from './slice/productSlice';
 import cart from './slice/cartSlice';
+import pizzas from './slice/pizzasSlice'
 
 export const store = configureStore({
   reducer: combineReducers({
@@ -10,6 +11,7 @@ export const store = configureStore({
     product: productReducer,
     filter: filterSlice,
     cart,
+    pizzas
   }),
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
