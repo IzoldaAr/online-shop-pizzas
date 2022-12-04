@@ -38,6 +38,7 @@ const pizzasSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
+    return (
     builder.addCase(fetchPizzas.pending, (state)=> {
       state.status = 'loading';
       state.pizzas = []
@@ -49,7 +50,7 @@ const pizzasSlice = createSlice({
     builder.addCase(fetchPizzas.rejected, state => {
       state.status = 'error';
       state.pizzas = []
-    })
+    }))
   }
 });
 

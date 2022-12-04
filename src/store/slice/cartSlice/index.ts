@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { TRootStore } from '../../store';
+
 
 type Cart = {
   totalPrice: number;
@@ -65,5 +67,6 @@ const cartSlice = createSlice({
   },
 });
 
+export const selectCart = (state: TRootStore) => state.cart
 export const { addItem, removeItem, clearItems, minusItem } = cartSlice.actions;
 export default cartSlice.reducer;

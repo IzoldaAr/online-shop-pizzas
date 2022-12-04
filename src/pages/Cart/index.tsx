@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TRootStore } from 'store';
 import { addUserInfo, resetUserInfo } from 'store/slice/authSlice';
 import { Link } from 'react-router-dom';
-import { clearItems } from 'store/slice/cartSlice';
+import { clearItems, selectCart } from 'store/slice/cartSlice';
 import { CartItem } from '../../components';
 
 function Cart() {
   const dispatch = useDispatch();
   //const authStore = useSelector<TRootStore>((store) => store.auth);
-  const pizzaItems = useSelector((state: TRootStore) => state.cart.items);
-  const { totalPrice, totalCount } = useSelector((state: TRootStore) => state.cart);
+  const { items: pizzaItems, totalPrice, totalCount } = useSelector(selectCart);
   //console.log(authStore);
   const onClickClear = () => {
     if (window.confirm('Do you want to clear the cart?')) {

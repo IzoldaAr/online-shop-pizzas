@@ -3,7 +3,7 @@ import { Categories, SortPopup, PizzaBlock } from 'components';
 
 import { useEffect, useState, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TRootStore } from 'store';
+import { TRootStore, AppDispatch } from 'store';
 import { setCategoryId, setSortType, setFilters } from 'store/slice/filterSlice.js';
 import { fetchPizzas } from 'store/slice/pizzasSlice';
 import qs from 'qs';
@@ -30,7 +30,7 @@ type SearchPizzaParams = {
 }
 
 function Home() {
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
   const { searchValue } = useContext(SearchContext);
@@ -50,7 +50,7 @@ function Home() {
     const order = '&order=' + (sortType.sortProperty.includes('-') ? 'asc' : 'desc');
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    // dispatch(fetchPizzas({category, sortBy, order, search}))    type to be corrected
+    dispatch(fetchPizzas({category, sortBy, order, search})) 
 
   };
 
