@@ -1,6 +1,6 @@
-function RegistrationForm() {
+function AuthorizationForm() {
   return (
-    <div className="registrationWrapper">
+    <div className="authForm">
       <form>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" name="name"></input>
@@ -17,4 +17,4 @@ function RegistrationForm() {
   );
 }
 
-export default RegistrationForm;
+export default AuthorizationForm;

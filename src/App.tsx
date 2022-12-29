@@ -1,7 +1,7 @@
 import { createContext, useEffect, useRef, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Header } from './components';
-import { Home, Cart, NotFound, RegistrationForm } from './pages';
+import { Home, Cart, NotFound, AuthorizationForm } from './pages';
 
 export const SearchContext = createContext<{
   searchValue: string;
@@ -70,7 +70,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/registration" element={<RegistrationForm />} />
+              <Route path="/authorization" element={<AuthorizationForm />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
